@@ -2,14 +2,14 @@ pipeline {
   agent any
 
   environment {
-    DOCKER_IMAGE = 'gitmicroservices'
+    DOCKER_IMAGE = 'my-image'
   }
 
   stages {
     stage('Checkout') {
       steps {
         // Checkout your Git repository
-        git 'https://github.com/oabiola59/microservices.git'
+        git 'https://github.com/GeraldAkenji/microservices.git'
       }
     }
 
