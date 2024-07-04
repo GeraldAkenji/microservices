@@ -4,12 +4,11 @@ pipeline {
   environment {
     DOCKER_IMAGE = 'my-image'
   }
-
   stages {
     stage('Checkout') {
       steps {
         // Checkout your Git repository
-        git 'https://github.com/GeraldAkenji/microservices.git'
+        git branch: 'main', url: 'https://github.com/GeraldAkenji/microservices.git'
       }
     }
 
@@ -17,7 +16,7 @@ pipeline {
       steps {
         script {
           // Build Docker image
-          docker.build("${DOCKER_IMAGE}", "-f app/Dockerfile .")
+          docker.build("${DOCKER_IMAGE}", "-f Dockerfile .")
         }
       }
     }
