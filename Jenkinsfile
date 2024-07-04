@@ -20,14 +20,6 @@ pipeline {
           docker.build("${DOCKER_IMAGE}", "-f app/Dockerfile .")
         }
       }
-    }
-
-    stage('Run Docker Container') {
-      steps {
-        script {
-          // Run Docker container
-          docker.image("${DOCKER_IMAGE}").run('-p 8080:8080')
-        }
       }
 
       post {
