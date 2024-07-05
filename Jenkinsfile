@@ -29,6 +29,7 @@ pipeline {
         always {
           // Clean up: stop and remove Docker container
           script {
+            sleep 300
             sh "docker stop ${DOCKER_IMAGE}_cont"
             sh "docker rm ${DOCKER_IMAGE}_cont"
           }
