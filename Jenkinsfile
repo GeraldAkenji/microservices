@@ -1,6 +1,5 @@
 pipeline {
   agent any
-
   environment {
     DOCKER_IMAGE = 'my-image'
   }
@@ -11,7 +10,6 @@ pipeline {
         git branch: 'main', url: 'https://github.com/GeraldAkenji/microservices.git'
       }
     }
-
     stage('Build Docker Image') {
       steps {
         script {
@@ -20,28 +18,24 @@ pipeline {
         }
       }
     }
-
     stage('Run Docker Container') {
       steps {
         script {
           // Run Docker container
-          docker.image("${DOCKER_IMAGE}").run('-p 8080:8080')
+          sh "docker run -d --name ${DOCKER_IMAGE}_cont -p 7237:8080 ${DOCKER_IMAGE}"
         }
       }
-
       post {
         always {
           // Clean up: stop and remove Docker container
           script {
-            docker.container("${DOCKER_IMAGE}").stop()
-            docker.container("${DOCKER_IMAGE}").remove(force: true)
+            sh "docker stop ${DOCKER_IMAGE}_cont"
+            sh "docker rm ${DOCKER_IMAGE}_cont"
           }
         }
       }
     }
-
   }
-
   // Define post-build actions if necessary
   post {
     success {
